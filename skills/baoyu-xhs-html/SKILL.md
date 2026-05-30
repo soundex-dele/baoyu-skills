@@ -1,0 +1,529 @@
+---
+name: baoyu-xhs-html
+description: Generates infographic HTML card series with 12 visual styles, 8 layouts, and 3 color palettes — pure HTML/CSS/JS, no AI image backend required. Breaks content into 1-10 stylized HTML cards for social media. Use when user mentions "小红书HTML", "HTML图片卡片", "HTML卡片系列", baoyu-xhs-html, or wants social media infographic series as editable HTML files. Also use when no raster image backend is available but the user needs card-style infographics.
+version: 1.0.0
+metadata:
+  openclaw:
+    homepage: https://github.com/JimLiu/baoyu-skills#baoyu-xhs-html
+---
+
+# HTML Card Series Generator
+
+Break down complex content into eye-catching HTML card series — pure HTML/CSS/JS, pixel-perfect, fully editable, zero AI image dependency.
+
+This skill outputs a **set of self-contained HTML files** that render styled infographic cards in the browser. Each card is a standalone HTML file that can be:
+
+- Opened directly in a browser for preview
+- Screenshot/exported to PNG (see [references/export.md](references/export.md))
+- Edited in any code editor for quick iteration
+- Embedded in articles, social media, or documentation
+
+## User Input Tools
+
+When this skill prompts the user, follow this tool-selection rule (priority order):
+
+1. **Prefer built-in user-input tools** exposed by the current agent runtime — e.g., `AskUserQuestion`, `request_user_input`, `clarify`, `ask_user`, or any equivalent.
+2. **Fallback**: if no such tool exists, emit a numbered plain-text message and ask the user to reply with the chosen number/answer for each question.
+3. **Batching**: if the tool supports multiple questions per call, combine all applicable questions into a single call; if only single-question, ask them one at a time in priority order.
+
+Concrete `AskUserQuestion` references below are examples — substitute the local equivalent in other runtimes.
+
+## Language
+
+Respond in the user's language across questions, progress, errors, and completion summary. Keep technical tokens (style names, file paths, code) in English.
+
+## Options
+
+| Option | Description |
+|--------|-------------|
+| `--style <name>` | Visual style (see Styles below) |
+| `--layout <name>` | Information layout (see Layouts below) |
+| `--palette <name>` | Color override: macaron / warm / neon |
+| `--preset <name>` | Style + layout + optional palette shorthand (see Presets below) |
+| `--aspect <ratio>` | Card aspect ratio: 3:4 (default), 1:1, 4:3, 9:16 |
+| `--yes` | Non-interactive: skip all confirmations, use defaults, auto-confirm recommended plan (Path A) |
+
+## Dimensions
+
+Four independent knobs combine freely:
+
+| Dimension | Controls | Options |
+|-----------|----------|---------|
+| **Style** | Visual aesthetics (CSS rendering approach) | 12 styles (see Styles below) |
+| **Layout** | Information structure (density, arrangement) | 8 layouts (see Layouts below) |
+| **Palette** (optional) | Color override, replaces the style's default colors | macaron / warm / neon (see Palettes below) |
+| **Aspect** | Card dimensions | 3:4 (default), 1:1, 4:3, 9:16 |
+
+Example: `--style notion --layout dense` makes an intellectual knowledge card; add `--palette macaron` to soften the colors without changing notion's rendering rules. A `--preset` is a shorthand for style + layout (+ optional palette).
+
+**Palette behavior**: no `--palette` → style's built-in colors; `--palette <name>` → overrides colors only, rendering rules unchanged. Some styles declare a `default_palette` (e.g., sketch-notes defaults to macaron).
+
+## Styles (12)
+
+| Style | Description | CSS Approach |
+|-------|-------------|--------------|
+| `cute` (Default) | Sweet, adorable, girly aesthetic | Rounded shapes, pastel gradients, bubbly decorations |
+| `fresh` | Clean, refreshing, natural | Light tones, leaf/nature shapes, soft shadows |
+| `warm` | Cozy, friendly, approachable | Warm earth tones, cozy patterns, soft borders |
+| `bold` | High impact, attention-grabbing | Strong contrast, thick borders, large type |
+| `minimal` | Ultra-clean, sophisticated | Maximum whitespace, thin lines, restrained color |
+| `retro` | Vintage, nostalgic, trendy | Distressed textures, vintage fonts, sepia tints |
+| `pop` | Vibrant, energetic, eye-catching | Bright colors, geometric shapes, dynamic layout |
+| `notion` | Minimalist hand-drawn line art, intellectual | Monochrome lines, simple icons, clean grid |
+| `chalkboard` | Colorful chalk on black board, educational | Dark background, chalk-like fonts, colorful marks |
+| `study-notes` | Realistic handwritten photo style | Blue/red/yellow pens on paper texture |
+| `screen-print` | Bold poster art, halftone textures, limited colors | High contrast, flat shapes, bold typography |
+| `sketch-notes` | Hand-drawn educational infographic | Wobble borders via Rough.js, pastel fills on cream |
+
+Per-style specifications: `references/presets/<style>.md`.
+
+## Layouts (8)
+
+| Layout | Description | HTML Structure |
+|--------|-------------|----------------|
+| `sparse` (Default) | 1-2 points, maximum impact | Centered hero + minimal text |
+| `balanced` | 3-4 points, standard | Grid of content blocks with icons |
+| `dense` | 5-8 points, knowledge-card style | Compact grid with numbered items |
+| `list` | Enumeration / ranking (4-7 items) | Vertical list with rank numbers |
+| `comparison` | Side-by-side contrast | Two-column split layout |
+| `flow` | Process / timeline (3-6 steps) | Horizontal/vertical step chain |
+| `mindmap` | Center-radial (4-8 branches) | Central node with radiating branches |
+| `quadrant` | Four-quadrant / circular sections | 2×2 grid or circular segments |
+
+Layout specs: `references/elements/canvas.md`.
+
+## Palettes (optional override)
+
+Replaces the style's colors while keeping rendering rules (borders, textures) intact.
+
+| Palette | Background | Zone Colors | Accent | Feel |
+|---------|------------|-------------|--------|------|
+| `macaron` | Warm cream #F5F0E8 | Blue #A8D8EA, Lavender #D5C6E0, Mint #B5E5CF, Peach #F8D5C4 | Coral #E8655A | Soft, educational |
+| `warm` | Soft peach #FFECD2 | Orange #ED8936, Terracotta #C05621, Golden #F6AD55, Rose #D4A09A | Sienna #A0522D | Earth tones, cozy |
+| `neon` | Dark purple #1A1025 | Cyan #00F5FF, Magenta #FF00FF, Green #39FF14, Pink #FF6EC7 | Yellow #FFFF00 | High-energy, futuristic |
+
+Palette specs: `references/palettes/<palette>.md`.
+
+## Presets (style + layout shortcuts)
+
+Quick-start combos, grouped by scenario. Use `--preset <name>` or recommend during Step 2.
+
+**Knowledge & Learning**:
+
+| Preset | Style | Layout | Best For |
+|--------|-------|--------|----------|
+| `knowledge-card` | notion | dense | 干货知识卡、概念科普 |
+| `checklist` | notion | list | 清单、排行榜 |
+| `concept-map` | notion | mindmap | 概念图、知识脉络 |
+| `swot` | notion | quadrant | SWOT 分析、四象限 |
+| `tutorial` | chalkboard | flow | 教程步骤、操作流程 |
+| `classroom` | chalkboard | balanced | 课堂笔记、知识讲解 |
+| `study-guide` | study-notes | dense | 学习笔记、考试重点 |
+| `hand-drawn-edu` | sketch-notes | flow | 手绘教程、流程图解 |
+| `sketch-card` | sketch-notes | dense | 手绘知识卡 |
+| `sketch-summary` | sketch-notes | balanced | 手绘总结、图文笔记 |
+
+**Lifestyle & Sharing**:
+
+| Preset | Style | Layout | Best For |
+|--------|-------|--------|----------|
+| `cute-share` | cute | balanced | 少女风分享、日常种草 |
+| `girly` | cute | sparse | 甜美封面、氛围感 |
+| `cozy-story` | warm | balanced | 生活故事、情感分享 |
+| `product-review` | fresh | comparison | 产品对比、测评 |
+| `nature-flow` | fresh | flow | 健康流程、自然主题 |
+
+**Impact & Opinion**:
+
+| Preset | Style | Layout | Best For |
+|--------|-------|--------|----------|
+| `warning` | bold | list | 避坑指南、重要提醒 |
+| `versus` | bold | comparison | 正反对比 |
+| `clean-quote` | minimal | sparse | 金句、极简封面 |
+| `pro-summary` | minimal | balanced | 专业总结、商务内容 |
+
+**Trend & Entertainment**:
+
+| Preset | Style | Layout | Best For |
+|--------|-------|--------|----------|
+| `retro-ranking` | retro | list | 复古排行、经典盘点 |
+| `throwback` | retro | balanced | 怀旧分享 |
+| `pop-facts` | pop | list | 趣味冷知识 |
+| `hype` | pop | sparse | 炸裂封面、惊叹分享 |
+
+**Poster & Editorial**:
+
+| Preset | Style | Layout | Best For |
+|--------|-------|--------|----------|
+| `poster` | screen-print | sparse | 海报风封面、影评书评 |
+| `editorial` | screen-print | balanced | 观点文章、文化评论 |
+| `cinematic` | screen-print | comparison | 电影对比、戏剧张力 |
+
+Full preset-fragment definitions: `references/style-presets.md`.
+
+## Auto-Selection
+
+Match content signals to the best combo. First row whose keywords appear wins; fall back to `cute-share` if nothing matches.
+
+| Signals in source | Style | Layout | Recommended preset |
+|-------------------|-------|--------|--------------------|
+| beauty, fashion, cute, girl, pink | `cute` | sparse/balanced | `cute-share`, `girly` |
+| health, nature, fresh, organic | `fresh` | balanced/flow | `product-review`, `nature-flow` |
+| life, story, emotion, warm | `warm` | balanced | `cozy-story` |
+| warning, important, must, critical | `bold` | list/comparison | `warning`, `versus` |
+| professional, business, elegant | `minimal` | sparse/balanced | `clean-quote`, `pro-summary` |
+| classic, vintage, traditional | `retro` | balanced | `throwback`, `retro-ranking` |
+| fun, exciting, wow, amazing | `pop` | sparse/list | `hype`, `pop-facts` |
+| knowledge, concept, productivity, SaaS | `notion` | dense/list | `knowledge-card`, `checklist` |
+| education, tutorial, learning, classroom | `chalkboard` | balanced/dense | `tutorial`, `classroom` |
+| notes, handwritten, study guide, realistic | `study-notes` | dense/list/mindmap | `study-guide` |
+| movie, poster, opinion, editorial, cinematic | `screen-print` | sparse/comparison | `poster`, `editorial`, `cinematic` |
+| hand-drawn, infographic, workflow, 手绘，图解 | `sketch-notes` | flow/balanced/dense | `hand-drawn-edu`, `sketch-card`, `sketch-summary` |
+
+## Style × Layout Matrix
+
+Compatibility scores (✓✓ highly recommended, ✓ works well, ✗ avoid). Use when the user picks a non-default combo and you want to flag a poor match.
+
+|              | sparse | balanced | dense | list | comparison | flow | mindmap | quadrant |
+|--------------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| cute         | ✓✓ | ✓✓ | ✓  | ✓✓ | ✓  | ✓  | ✓  | ✓  |
+| fresh        | ✓✓ | ✓✓ | ✓  | ✓  | ✓  | ✓✓ | ✓  | ✓  |
+| warm         | ✓✓ | ✓✓ | ✓  | ✓  | ✓✓ | ✓  | ✓  | ✓  |
+| bold         | ✓✓ | ✓  | ✓  | ✓✓ | ✓✓ | ✓  | ✓  | ✓✓ |
+| minimal      | ✓✓ | ✓✓ | ✓✓ | ✓  | ✓  | ✓  | ✓  | ✓  |
+| retro        | ✓✓ | ✓✓ | ✓  | ✓✓ | ✓  | ✓  | ✓  | ✓  |
+| pop          | ✓✓ | ✓✓ | ✓  | ✓✓ | ✓✓ | ✓  | ✓  | ✓  |
+| notion       | ✓✓ | ✓✓ | ✓✓ | ✓✓ | ✓✓ | ✓✓ | ✓✓ | ✓✓ |
+| chalkboard   | ✓✓ | ✓✓ | ✓✓ | ✓✓ | ✓  | ✓✓ | ✓✓ | ✓  |
+| study-notes  | ✗  | ✓  | ✓✓ | ✓✓ | ✓  | ✓  | ✓✓ | ✓  |
+| screen-print | ✓✓ | ✓✓ | ✗  | ✓  | ✓✓ | ✓  | ✗  | ✓✓ |
+| sketch-notes | ✓  | ✓✓ | ✓✓ | ✓✓ | ✓  | ✓✓ | ✓✓ | ✓  |
+
+## Outline Strategies
+
+Three differentiated approaches — each produces a structurally different outline. The workflow recommends one; Path C generates all three and lets the user choose.
+
+| Strategy | Concept | Best for | Structure |
+|----------|---------|----------|-----------|
+| **A — Story-Driven** | Personal experience as the thread, emotional resonance first | Reviews, personal shares, transformation | Hook → Problem → Discovery → Experience → Conclusion |
+| **B — Information-Dense** | Value-first, efficient information delivery | Tutorials, comparisons, checklists | Core conclusion → Info card → Pros/Cons → Recommendation |
+| **C — Visual-First** | Visual impact as core, minimal text | High-aesthetic products, lifestyle, mood content | Hero image → Detail shots → Lifestyle scene → CTA |
+
+## Confirmation Policy
+
+Default behavior: **confirm before generation**.
+
+- Treat explicit skill invocation, a file path, matched signals/presets, and `EXTEND.md` defaults as **recommendation inputs only**. None of them authorizes skipping confirmation.
+- Do **not** start Step 3 until the user completes Step 2.
+- Skip confirmation only when the current request explicitly says to do so, for example: `--yes`, "直接生成", "不用确认", "跳过确认", "按默认出图", or equivalent wording.
+- If confirmation is skipped explicitly, state the assumed strategy / style / layout / palette / count in the next user-facing update before generating.
+
+## File Layout
+
+```
+html-cards/{topic-slug}/
+├── source-{slug}.{ext}
+├── analysis.md
+├── outline-strategy-{a,b,c}.md    # Path C only
+├── outline.md
+├── NN-{type}-{slug}.html          # Standalone HTML card files
+├── index.html                     # Optional: gallery view of all cards
+└── captures/                      # Optional: PNG exports
+    └── NN-{type}-{slug}.png
+```
+
+**Slug**: 2-4 words, kebab-case. "AI 工具推荐" → `ai-tools-recommend`. On collision, append `-YYYYMMDD-HHMMSS`.
+
+**Backup rule** (applies throughout): before overwriting any file — source, outline, HTML — rename the existing one to `<name>-backup-YYYYMMDD-HHMMSS.<ext>`. This protects user edits.
+
+## Workflow
+
+```
+- [ ] Step 0: Load EXTEND.md ⛔ BLOCKING (interactive only)
+- [ ] Step 1: Analyze content → analysis.md
+- [ ] Step 2: Smart Confirm ⚠️ REQUIRED (Path A / B / C)
+- [ ] Step 3: Generate HTML cards
+- [ ] Step 4: Preview in browser + export if needed
+- [ ] Step 5: Completion report
+```
+
+### Step 0: Load EXTEND.md ⛔ BLOCKING
+
+Check these paths in order; first hit wins:
+
+| Path | Scope |
+|------|-------|
+| `.baoyu-skills/baoyu-xhs-html/EXTEND.md` | Project |
+| `${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-xhs-html/EXTEND.md` | XDG |
+| `$HOME/.baoyu-skills/baoyu-xhs-html/EXTEND.md` | User home |
+
+- **Found** → read, parse, print a summary (style / layout / palette / aspect / language), continue.
+- **Not found + interactive** → run first-time setup (see `references/config/first-time-setup.md`) and save before anything else. Do NOT analyze content or ask style questions until preferences exist.
+- **Not found + `--yes`** → skip setup, use built-in defaults (no watermark, style/layout auto-selected, language from content, aspect 3:4). Do not prompt, do not create EXTEND.md.
+
+**EXTEND.md keys**: watermark, preferred style/layout/palette, custom style definitions, language preference, preferred aspect ratio. Schema: `references/config/preferences-schema.md`.
+
+### Step 1: Analyze Content → `analysis.md`
+
+1. Save the source (backup rule applies if `source.md` exists).
+2. Run the deep analysis in `references/workflows/analysis-framework.md`: content type, hook potential, audience, engagement signals, visual opportunity map, swipe flow.
+3. Detect source language, pick recommended card count (2-10).
+4. Auto-recommend strategy + style + layout + palette using the **Auto-Selection** table above.
+5. Write everything to `analysis.md`.
+
+### Step 2: Smart Confirm ⚠️ REQUIRED
+
+**Hard gate**: this step is mandatory per the [Confirmation Policy](#confirmation-policy) — Step 3 cannot start until the user confirms here (or explicitly opts out with `--yes` / equivalent wording in the current request).
+
+Goal: present the auto-recommended plan and let the user confirm or adjust. Skip this step entirely under `--yes` — proceed with Path A using the analysis and any CLI overrides.
+
+**Display summary** before asking:
+
+```
+📋 内容分析
+  主题：[topic] | 类型：[content_type]
+  要点：[key points]
+  受众：[audience]
+
+🎨 推荐方案（自动匹配）
+  策略：[A/B/C] [name]（[reason]）
+  风格：[style] · 布局：[layout] · 配色：[palette or 默认] · 预设：[preset]
+  卡片：[N]张（封面+[N-2]内容+结尾）· 比例：[aspect]
+```
+
+Then ask one question — three paths. Verbatim option copy: `references/confirmation.md`.
+
+**Path A — Quick confirm** (trust auto-recommendation): generate a single outline using the recommended strategy + style → save to `outline.md` → Step 3.
+
+**Path B — Customize**: ask five questions (strategy/style, layout, palette, count, aspect ratio) with the recommendation pre-filled — blanks keep the recommendation. Generate one outline with the user's choices → `outline.md` → Step 3. See `references/confirmation.md`.
+
+**Path C — Detailed mode**: two sub-confirmations.
+
+- *Step 2a — Content understanding*: ask selling points (multi-select), audience, style preference (authentic / professional / aesthetic / auto), optional context. Update `analysis.md`.
+- *Step 2b — Three outline variants*: generate `outline-strategy-a.md`, `outline-strategy-b.md`, `outline-strategy-c.md`. Each MUST have a different structure AND a different recommended style — include `style_reason` in the frontmatter. Page-count heuristic: A ~4-6, B ~3-5, C ~3-4. Template: `references/workflows/outline-template.md`.
+- *Step 2c — Selection*: ask three questions (outline A/B/C/Combined, style, visual elements). Save selected/merged outline to `outline.md` → Step 3.
+
+### Step 3: Generate HTML Cards
+
+With confirmed outline + style + layout + palette:
+
+**Visual consistency**: all cards in a series MUST share the same:
+- CSS custom properties (palette colors)
+- Font families and size scale
+- Border radius, shadow, and spacing tokens
+- Header/footer structure (page number, branding)
+
+**HTML Structure** (each card is a standalone file):
+
+```html
+<!DOCTYPE html>
+<html lang="{lang}">
+<head>
+    <meta charset="UTF-8">
+    <title>{title} - Card {N}</title>
+    <style>
+        /* Reset */
+        /* CSS Custom Properties (palette) */
+        /* Layout Grid */
+        /* Typography */
+        /* Decorations */
+        /* Style-specific overrides */
+        /* Card-specific content styles */
+    </style>
+</head>
+<body>
+    <div class="card" style="width:{w}px; height:{h}px;">
+        <!-- Header: page indicator, branding -->
+        <!-- Background layer: gradient/pattern/texture -->
+        <!-- Content layer: title, body, icons -->
+        <!-- Decoration layer: shapes, doodles, borders -->
+        <!-- Footer: page number, watermark -->
+    </div>
+</body>
+</html>
+```
+
+**Key Rules**:
+
+1. **Self-contained**: All CSS inline. No external dependencies except:
+   - Google Fonts `<link>` (with system-font fallback)
+   - Rough.js CDN `<script>` (only for `sketch-notes` style)
+
+2. **Fixed dimensions**: Use exact pixel dimensions for the chosen aspect ratio:
+   - 3:4 → 1080×1440
+   - 1:1 → 1080×1080
+   - 4:3 → 1440×1080
+   - 9:16 → 1080×1920
+
+3. **CSS Custom Properties** for palette — shared across all cards:
+
+```css
+:root {
+    --bg-primary: #...;
+    --bg-secondary: #...;
+    --bg-card: #...;
+    --text-primary: #...;
+    --text-secondary: #...;
+    --accent: #...;
+    --accent-soft: #...;
+    --zone-1: #...;
+    --zone-2: #...;
+    --zone-3: #...;
+    --zone-4: #...;
+    --border: #...;
+    --shadow: rgba(...);
+}
+```
+
+4. **Typography**: Use Google Fonts with system fallback. Font selection per style — see `references/elements/typography.md`.
+
+5. **Decorations**: CSS-only by default:
+   - **CSS shapes**: `border-radius`, `clip-path`, `background` gradients
+   - **Inline SVG**: For icons, doodles, complex shapes
+   - **Rough.js**: Only for `sketch-notes` style
+   - **Pseudo-elements**: `::before` / `::after` for decorative accents
+
+6. **Composition**: Follow the layout-specific guidance in `references/elements/canvas.md`:
+   - **Safe zones**: 60px padding on all sides
+   - **Grid**: 12-column grid for balanced/dense layouts
+   - **Whitespace**: 30-50% breathing room
+   - **Text hierarchy**: Title → Body → Tags, clear size contrast
+
+7. **Card series consistency**:
+   - Header: consistent title/branding area
+   - Footer: page indicator (e.g., "2/5")
+   - Color palette: identical `:root` variables across all cards
+   - Font scale: same size tokens across all cards
+   - Transition: visual elements (e.g., a mascot, color bar) carry across cards
+
+**Generation flow**:
+
+1. Read style definition from `references/presets/<style>.md`.
+2. Read palette definition from `references/palettes/<palette>.md` (or style defaults).
+3. Read layout definition from `references/elements/canvas.md`.
+4. For each card in the outline:
+   a. Assemble HTML using `references/workflows/html-assembly.md`.
+   b. Write to `NN-{type}-{slug}.html` (backup rule applies).
+5. Optionally create `index.html` — a gallery view linking all cards with navigation.
+
+**Watermark** (if enabled in EXTEND.md): add as a positioned element:
+
+```html
+<div class="watermark">[content]</div>
+```
+
+```css
+.watermark {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 12px;
+    opacity: 0.4;
+    color: var(--text-secondary);
+}
+```
+
+### Step 4: Preview & Export
+
+1. **Save** all HTML files to the output directory.
+2. **Open in browser** for preview — open the first card or `index.html`.
+3. **Export to PNG** (if requested) — see [references/export.md](references/export.md):
+   - Playwright automated capture (recommended)
+   - Puppeteer capture
+   - Manual browser screenshot
+
+### Step 5: Completion Report
+
+```
+HTML Card Series Complete!
+
+Topic: [topic]
+Mode: [Quick / Custom / Detailed]
+Strategy: [A/B/C/Combined]
+Style: [name]
+Palette: [name or "default"]
+Layout: [name or "varies"]
+Aspect: [ratio]
+Location: [directory]
+Cards: N total
+
+✓ analysis.md
+✓ outline.md
+✓ outline-strategy-a/b/c.md (detailed mode only)
+
+- 01-cover-[slug].html ✓ Cover (sparse)
+- 02-content-[slug].html ✓ Content (balanced)
+- ...
+- NN-ending-[slug].html ✓ Ending (sparse)
+
+To preview: open [directory]/01-cover-[slug].html in browser
+To export: see references/export.md
+```
+
+## Content Breakdown Principles
+
+| Position | Purpose | Typical layout |
+|----------|---------|----------------|
+| Cover (card 1) | Hook + visual impact | `sparse` |
+| Content (middle) | Core value per card | `balanced` / `dense` / `list` / `comparison` / `flow` |
+| Ending (last) | CTA / summary | `sparse` or `balanced` |
+
+## Card Modification
+
+One of the key advantages of HTML cards is easy modification:
+
+| Action | How |
+|--------|-----|
+| **Change palette** | Edit `:root` CSS variables in each card |
+| **Change text** | Edit HTML text content directly |
+| **Adjust layout** | Modify CSS flexbox/grid properties |
+| **Swap font** | Change Google Fonts link + CSS font-family |
+| **Tweak decoration** | Edit CSS or inline SVG |
+| **Add card** | Create new HTML file, update page numbers |
+| **Remove card** | Delete HTML file, update page numbers |
+
+For regeneration, update the source and re-run the skill with the same or new options.
+
+## Composition Principles
+
+- **Whitespace**: 30-50% breathing room — avoid overfilling.
+- **Visual anchor**: One dominant element (shape, icon, or text block) per card.
+- **Simplified imagery**: Icons, abstract shapes, geometric patterns — no photorealism.
+- **Title integrity**: Use the exact title from user/source; never invent or paraphrase.
+- **Color restraint**: Dominant palette color + 1-2 accents. Avoid rainbow effects.
+- **Card flow**: Each card should feel like part of a series — consistent header, footer, color theme.
+
+## References
+
+| File | Content |
+|------|---------|
+| `references/confirmation.md` | Verbatim AskUserQuestion copy for every confirmation path |
+| `references/style-presets.md` | Full preset shortcut definitions |
+| `references/presets/<style>.md` | Per-style CSS rendering rules |
+| `references/palettes/<name>.md` | Per-palette CSS custom properties |
+| `references/elements/canvas.md` | Aspect ratios, safe zones, grid layouts |
+| `references/elements/typography.md` | Font selection, decorated text, tags |
+| `references/elements/decorations.md` | CSS shapes, SVG decorations, backgrounds |
+| `references/workflows/analysis-framework.md` | Content analysis framework |
+| `references/workflows/outline-template.md` | Outline template with layout guide |
+| `references/workflows/html-assembly.md` | HTML assembly guide |
+| `references/config/preferences-schema.md` | EXTEND.md schema |
+| `references/config/first-time-setup.md` | First-time setup flow |
+| `references/export.md` | PNG export methods |
+
+## Notes
+
+- All output is pure HTML/CSS/JS — no server, no build step, no framework required.
+- Rough.js is the only optional external dependency (for `sketch-notes` style only).
+- Smart Confirm (Step 2) is required; Detailed mode adds a second confirmation (2a + 2c).
+- For the best visual results, preview in Chrome/Edge before exporting to PNG.
+
+## Changing Preferences
+
+EXTEND.md lives at the first matching path listed in Step 0. Three ways to change it:
+
+- **Edit directly** — open EXTEND.md and change fields. Full schema: `references/config/preferences-schema.md`.
+- **Reconfigure interactively** — delete EXTEND.md (or ask "reconfigure baoyu-xhs-html preferences" / "重新配置"). The next run re-triggers first-time setup.
+- **Common one-line edits**:
+  - `preferred_style: notion`, `preferred_layout: dense`, `preferred_palette: macaron`, `preferred_aspect: "3:4"`, `language: zh`.
+  - `watermark.enabled: true` + `watermark.content: "@handle"` — add a watermark.
