@@ -23,7 +23,7 @@ import type {
   WaitForInteractionRequest,
 } from "../adapters/types";
 
-export type WaitMode = "none" | "interaction" | "force";
+export type WaitMode = "none" | "interaction" | "force" | "confirm";
 export type OutputFormat = "markdown" | "json";
 
 export interface ConvertCommandOptions {
@@ -290,6 +290,27 @@ async function waitForForceResume(
   throw new Error("Timed out waiting for force-mode interaction to complete");
 }
 
+async function waitForConfirm(context: AdapterContext): Promise<void> {
+  if (context.interactive) {
+    await context.browser.bringToFront().catch(() => {});
+  }
+
+  const prompt = "Chrome is ready. Press Enter to continue extraction.";
+  context.log.info(prompt);
+
+  const rl = createInterface({
+    input: process.stdin,
+    output: process.stderr,
+  });
+
+  return new Promise<void>((resolve) => {
+    rl.once("line", () => {
+      rl.close();
+      resolve();
+    });
+  });
+}
+
 async function waitForInteraction(
   adapter: Adapter,
   context: AdapterContext,
@@ -418,6 +439,11 @@ export async function runConvertCommand(options: ConvertCommandOptions): Promise
     if (options.waitMode === "force") {
       await context.browser.goto(url.toString(), options.timeoutMs).catch(() => {});
       await waitForForceResume(adapter, context, options);
+    }
+
+    if (options.waitMode === "confirm") {
+      await context.browser.goto(url.toString(), options.timeoutMs).catch(() => {});
+      await waitForConfirm(context);
     }
 
     let result = await adapter.process(context);

@@ -27,12 +27,14 @@ Options:
                         Chrome user data dir. Defaults to BAOYU_CHROME_PROFILE_DIR
                         or baoyu-skills/chrome-profile.
   --headless            Launch a temporary headless Chrome if needed
-  --wait-for <mode>     Wait mode: interaction | force
+  --wait-for <mode>     Wait mode: interaction | force | confirm
                         interaction: start visible Chrome and auto-wait only when login or verification is required
                         force: start visible Chrome, then auto-continue after it detects login/challenge progress
                                or continue immediately when you press Enter
+                        confirm: start visible Chrome, wait until you press Enter to continue
   --wait-for-interaction
                         Alias for --wait-for interaction
+  --wait-for-confirm    Alias for --wait-for confirm
   --wait-for-login      Alias for --wait-for interaction
   --interaction-timeout <ms>
                         How long to wait for manual interaction before failing (default: 600000)
@@ -50,6 +52,7 @@ Examples:
   baoyu-fetch https://example.com --format json --output article.json
   baoyu-fetch https://x.com/lennysan/status/2036483059407810640 --wait-for interaction
   baoyu-fetch https://x.com/lennysan/status/2036483059407810640 --wait-for force
+  baoyu-fetch https://x.com/lennysan/status/2036483059407810640 --wait-for confirm
 `.trim();
 
 interface CliOptions extends ConvertCommandOptions {
@@ -65,7 +68,10 @@ function normalizeWaitMode(raw: string): WaitMode {
   if (value === "force" || value === "manual" || value === "always") {
     return "force";
   }
-  throw new Error(`Invalid wait mode: ${raw}. Expected interaction or force.`);
+  if (value === "confirm" || value === "enter") {
+    return "confirm";
+  }
+  throw new Error(`Invalid wait mode: ${raw}. Expected interaction, force, or confirm.`);
 }
 
 function normalizeOutputFormat(raw: string): OutputFormat {
@@ -129,6 +135,10 @@ export function parseArgs(argv: string[]): CliOptions {
     }
     if (value === "--wait-for-interaction" || value === "--wait-for-login") {
       options.waitMode = "interaction";
+      continue;
+    }
+    if (value === "--wait-for-confirm") {
+      options.waitMode = "confirm";
       continue;
     }
     if (value === "--output") {
