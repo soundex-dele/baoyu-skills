@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1440">
+<title>第二步·生成内容 - Card 3/7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f0f0f0; }
+
+:root {
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F7F6F3;
+    --bg-accent: #F0EFEA;
+    --text-primary: #37352F;
+    --text-secondary: #787774;
+    --text-tertiary: #B4B4B0;
+    --zone-1: #E8F0FE;
+    --zone-2: #FDE8E8;
+    --zone-3: #E8F5E9;
+    --zone-4: #FFF8E1;
+    --accent: #2EAADC;
+    --accent-soft: #90CAF9;
+    --accent-bg: rgba(46, 170, 220, 0.08);
+    --border: #E9E9E7;
+    --border-light: #F1F1EF;
+    --shadow: rgba(55, 53, 47, 0.06);
+    --text-2xl: 52px;
+    --text-xl: 40px;
+    --text-lg: 32px;
+    --text-base: 24px;
+    --text-sm: 20px;
+    --text-xs: 17px;
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.5;
+    --z-background: 0; --z-decoration: 10; --z-content: 20; --z-header: 30; --z-footer: 30;
+}
+
+.card {
+    position: relative;
+    width: 1080px; height: 1440px;
+    padding: 56px 60px;
+    overflow: hidden;
+    font-family: 'Noto Sans SC', "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+}
+.card::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+    background-size: 24px 24px; opacity: 0.5; z-index: var(--z-background);
+}
+
+.card-header { position: relative; z-index: var(--z-header); display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.card-brand { font-size: 20px; color: var(--text-secondary); font-weight: 500; }
+.brand-dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: var(--accent); margin-right: 8px; vertical-align: middle; }
+.card-page { font-size: 18px; color: var(--text-tertiary); }
+
+.stage-bar { position: relative; z-index: var(--z-content); display: flex; align-items: center; gap: 20px; padding-bottom: 20px; border-bottom: 2px solid var(--text-primary); margin-bottom: 24px; }
+.stage-num { font-size: 64px; font-weight: 700; color: var(--accent); line-height: 1; }
+.stage-title { font-size: 44px; font-weight: 700; color: var(--text-primary); line-height: var(--line-height-tight); }
+.stage-sub { font-size: var(--text-sm); color: var(--text-secondary); margin-top: 6px; }
+
+.lead { position: relative; z-index: var(--z-content); font-size: var(--text-base); color: var(--text-secondary); line-height: var(--line-height-normal); margin-bottom: 24px; padding: 16px 22px; background: var(--bg-secondary); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; }
+
+.skill-grid { position: relative; z-index: var(--z-content); display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.skill-block { background: var(--bg-primary); border: 1px solid var(--border); border-radius: 10px; padding: 20px; position: relative; }
+.skill-block .name { font-size: var(--text-base); font-weight: 500; color: var(--text-primary); margin-bottom: 6px; font-family: 'SF Mono', Consolas, monospace; }
+.skill-block .desc { font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.45; margin-bottom: 12px; }
+.skill-block .action { background: var(--accent-bg); border: 1px dashed var(--accent-soft); border-radius: 6px; padding: 10px 12px; font-size: var(--text-xs); color: var(--text-primary); line-height: 1.5; }
+.skill-block .action .pointer { color: var(--accent); font-weight: 700; }
+.skill-block .tag-genre { position: absolute; top: 16px; right: 16px; font-size: 14px; color: var(--accent); background: var(--accent-bg); border-radius: 4px; padding: 2px 8px; }
+
+.card-footer { position: absolute; bottom: 32px; left: 60px; right: 60px; z-index: var(--z-footer); display: flex; justify-content: space-between; align-items: center; }
+.footer-note { font-size: 18px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+<div class="card">
+    <div class="card-header">
+        <span class="card-brand"><span class="brand-dot"></span>baoyu · 24 skills</span>
+    </div>
+
+    <div class="stage-bar">
+        <div class="stage-num">02</div>
+        <div>
+            <div class="stage-title">把素材变成内容</div>
+            <div class="stage-sub">生成内容 · 6 个技能</div>
+        </div>
+    </div>
+
+    <div class="lead">素材有了，接下来生产各种形态的内容——不止文章，还有漫画、幻灯片、信息图、小红书卡片。</div>
+
+    <div class="skill-grid">
+        <div class="skill-block">
+            <span class="tag-genre">文本</span>
+            <div class="name">baoyu-translate</div>
+            <div class="desc">带术语一致的精翻，快翻/普通/精炼三档。</div>
+            <div class="action"><span class="pointer">👉</span> "用 baoyu-translate 把这段英文精翻成中文。" 贴文本。</div>
+        </div>
+        <div class="skill-block">
+            <span class="tag-genre">漫画</span>
+            <div class="name">baoyu-comic</div>
+            <div class="desc">知识内容做成多格漫画，PNG + 合并 PDF。</div>
+            <div class="action"><span class="pointer">👉</span> "用 baoyu-comic 把这段内容做成知识漫画。" 贴文本。</div>
+        </div>
+        <div class="skill-block">
+            <span class="tag-genre">幻灯片</span>
+            <div class="name">baoyu-slide-deck</div>
+            <div class="desc">做成可分享幻灯片，PNG + PPT + PDF。</div>
+            <div class="action"><span class="pointer">👉</span> "用 baoyu-slide-deck 把这篇文章做成 PPT。" 贴文章。</div>
+        </div>
+        <div class="skill-block">
+            <span class="tag-genre">信息图</span>
+            <div class="name">baoyu-infographic</div>
+            <div class="desc">高密度信息图，21 布局 × 22 风格可选。</div>
+            <div class="action"><span class="pointer">👉</span> "用 baoyu-infographic 把这段内容做成信息图。" 贴文本。</div>
+        </div>
+        <div class="skill-block">
+            <span class="tag-genre">小红书·代码</span>
+            <div class="name">baoyu-xhs-html</div>
+            <div class="desc">小红书 HTML 卡片系列 1-10 张，纯代码可二次编辑。</div>
+            <div class="action"><span class="pointer">👉</span> "用 baoyu-xhs-html 把这段内容做成小红书卡片系列。" 贴文本。</div>
+        </div>
+        <div class="skill-block">
+            <span class="tag-genre">小红书·AI图</span>
+            <div class="name">baoyu-xhs-images</div>
+            <div class="desc">小红书 AI 图片卡片，图 1 锚定后续风格一致性。</div>
+            <div class="action"><span class="pointer">👉</span> "用 baoyu-xhs-images 把这段内容做成小红书图片卡片。" 贴文本。</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <span class="footer-note">第二步 · 生成内容</span>
+        <span class="card-page">3 / 7</span>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1440">
+<title>第三步·配图与排版 - Card 4/7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f0f0f0; }
+
+:root {
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F7F6F3;
+    --bg-accent: #F0EFEA;
+    --text-primary: #37352F;
+    --text-secondary: #787774;
+    --text-tertiary: #B4B4B0;
+    --zone-1: #E8F0FE;
+    --zone-2: #FDE8E8;
+    --zone-3: #E8F5E9;
+    --zone-4: #FFF8E1;
+    --accent: #2EAADC;
+    --accent-soft: #90CAF9;
+    --accent-bg: rgba(46, 170, 220, 0.08);
+    --border: #E9E9E7;
+    --border-light: #F1F1EF;
+    --shadow: rgba(55, 53, 47, 0.06);
+    --text-2xl: 52px;
+    --text-xl: 40px;
+    --text-lg: 30px;
+    --text-base: 22px;
+    --text-sm: 19px;
+    --text-xs: 16px;
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.45;
+    --z-background: 0; --z-decoration: 10; --z-content: 20; --z-header: 30; --z-footer: 30;
+}
+
+.card {
+    position: relative;
+    width: 1080px; height: 1440px;
+    padding: 52px 60px;
+    overflow: hidden;
+    font-family: 'Noto Sans SC', "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+}
+.card::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+    background-size: 24px 24px; opacity: 0.5; z-index: var(--z-background);
+}
+
+.card-header { position: relative; z-index: var(--z-header); display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+.card-brand { font-size: 20px; color: var(--text-secondary); font-weight: 500; }
+.brand-dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: var(--accent); margin-right: 8px; vertical-align: middle; }
+.card-page { font-size: 18px; color: var(--text-tertiary); }
+
+.stage-bar { position: relative; z-index: var(--z-content); display: flex; align-items: center; gap: 18px; padding-bottom: 16px; border-bottom: 2px solid var(--text-primary); margin-bottom: 20px; }
+.stage-num { font-size: 58px; font-weight: 700; color: var(--accent); line-height: 1; }
+.stage-title { font-size: 40px; font-weight: 700; color: var(--text-primary); line-height: var(--line-height-tight); }
+.stage-sub { font-size: var(--text-sm); color: var(--text-secondary); margin-top: 4px; }
+
+.lead { position: relative; z-index: var(--z-content); font-size: var(--text-base); color: var(--text-secondary); line-height: var(--line-height-normal); margin-bottom: 20px; padding: 14px 20px; background: var(--zone-4); border-left: 4px solid #F6AD55; border-radius: 0 8px 8px 0; }
+.lead b { color: var(--text-primary); }
+
+.section-label { position: relative; z-index: var(--z-content); font-size: var(--text-sm); font-weight: 700; color: var(--accent); margin: 4px 0 10px; letter-spacing: 1px; }
+
+.pair { position: relative; z-index: var(--z-content); display: grid; grid-template-columns: 1fr 24px 1fr; gap: 0; align-items: stretch; margin-bottom: 18px; }
+.pair-side { background: var(--bg-primary); border: 1px solid var(--border); border-radius: 10px 0 0 10px; padding: 16px 18px; }
+.pair-side.right { border-radius: 0 10px 10px 0; border-left: none; background: var(--bg-secondary); }
+.pair-vs { display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--text-tertiary); font-weight: 700; }
+.pair-side .name { font-size: var(--text-base); font-weight: 500; color: var(--text-primary); margin-bottom: 4px; font-family: 'SF Mono', Consolas, monospace; }
+.pair-side .desc { font-size: var(--text-xs); color: var(--text-secondary); line-height: 1.4; margin-bottom: 8px; }
+.pair-side .action { background: var(--accent-bg); border: 1px dashed var(--accent-soft); border-radius: 6px; padding: 8px 10px; font-size: var(--text-xs); color: var(--text-primary); line-height: 1.4; }
+.pair-side .action .pointer { color: var(--accent); font-weight: 700; }
+.pair-side .badge { display: inline-block; font-size: 13px; color: var(--accent); background: var(--accent-bg); border-radius: 4px; padding: 1px 8px; margin-bottom: 6px; }
+.pair-side .badge.fallback { color: #C05621; background: var(--zone-2); }
+
+.solo-grid { position: relative; z-index: var(--z-content); display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.solo-block { background: var(--bg-primary); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+.solo-block .name { font-size: var(--text-base); font-weight: 500; color: var(--text-primary); margin-bottom: 4px; font-family: 'SF Mono', Consolas, monospace; }
+.solo-block .desc { font-size: var(--text-xs); color: var(--text-secondary); line-height: 1.4; margin-bottom: 8px; }
+.solo-block .action { background: var(--accent-bg); border: 1px dashed var(--accent-soft); border-radius: 6px; padding: 8px 10px; font-size: var(--text-xs); color: var(--text-primary); line-height: 1.4; }
+.solo-block .action .pointer { color: var(--accent); font-weight: 700; }
+.solo-block .pin { display: inline-block; font-size: 13px; color: #C05621; background: var(--zone-2); border-radius: 4px; padding: 1px 8px; margin-top: 6px; }
+
+.card-footer { position: absolute; bottom: 28px; left: 60px; right: 60px; z-index: var(--z-footer); display: flex; justify-content: space-between; align-items: center; }
+.footer-note { font-size: 18px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+<div class="card">
+    <div class="card-header">
+        <span class="card-brand"><span class="brand-dot"></span>baoyu · 24 skills</span>
+    </div>
+
+    <div class="stage-bar">
+        <div class="stage-num">03</div>
+        <div>
+            <div class="stage-title">配图与排版</div>
+            <div class="stage-sub">7 个技能 · 流水线上最碎的一段</div>
+        </div>
+    </div>
+
+    <div class="lead">规律：<b>很多技能成对出现——一个走 AI 出图，一个走纯 HTML/CSS</b>。后者在没有 AI 图片后端时照样能跑，是兜底方案。</div>
+
+    <div class="section-label">▍成对技能 · AI 出图 vs 纯 HTML</div>
+
+    <div class="pair">
+        <div class="pair-side">
+            <span class="badge">封面·AI出图</span>
+            <div class="name">baoyu-cover-image</div>
+            <div class="desc">为文章生成 AI 封面 PNG。</div>
+            <div class="action"><span class="pointer">👉</span> "用 baoyu-cover-image 给这篇文章生成封面图。" 贴文章。</div>
+        </div>
+        <div class="pair-vs">vs</div>
+        <div class="pair-side right">
+            <span class="badge fallback">封面·HTML兜底</span>
+            <div class="name">baoyu-html-cover</div>
+            <div class="desc">纯 HTML/CSS 生成封面，可导出 PNG。</div>
+            <div class="action"><span class="pointer">👉</span> "用 baoyu-html-cover 给这篇文章做个 HTML 封面。" 贴标题。</div>
+        </div>
+    </div>
+
+    <div class="pair">
+        <div class="pair-side">
+            <span class="badge">配图·AI出图</span>
+            <div class="name">baoyu-article-illustrator</div>
+            <div class="desc">分析文章结构生成 AI 配图。</div>
+            <div class="action"><span class="pointer">👉</span> "用 baoyu-article-illustrator 为这篇文章配图。" 贴文章。</div>
+        </div>
+        <div class="pair-vs">vs</div>
+        <div class="pair-side right">
+            <span class="badge fallback">配图·HTML兜底</span>
+            <div class="name">baoyu-article-html-illustrator</div>
+            <div class="desc">可编辑的 HTML/CSS 配图（6类型×多风格×4配色）。</div>
+            <div class="action"><span class="pointer">👉</span> "用 baoyu-article-html-illustrator 给这篇文章配 HTML 图。" 贴文章。</div>
+        </div>
+    </div>
+
+    <div class="section-label">▍独立技能</div>
+
+    <div class="solo-grid">
+        <div class="solo-block">
+            <div class="name">baoyu-diagram</div>
+            <div class="desc">深色 SVG 技术图：架构/流程/时序/思维导图。</div>
+            <div class="action"><span class="pointer">👉</span> "用 baoyu-diagram 画一个微服务架构图。" 描述组件。</div>
+        </div>
+        <div class="solo-block">
+            <div class="name">baoyu-format-markdown</div>
+            <div class="desc">排版 + 补全标题/摘要/frontmatter + 加层级。</div>
+            <div class="action"><span class="pointer">👉</span> "用 baoyu-format-markdown 排版这篇文章。" 给路径。</div>
+        </div>
+    </div>
+
+    <div class="solo-block" style="margin-top:16px; border-color: var(--accent-soft); background: linear-gradient(90deg, var(--accent-bg), transparent);">
+        <div class="name">baoyu-markdown-to-html</div>
+        <div class="desc">markdown 转带样式的公众号 HTML，4 主题 13 配色，外链自动转底部引用。</div>
+        <div class="action"><span class="pointer">👉</span> "用 baoyu-markdown-to-html 把 article.md 转成 html。" 给路径。</div>
+        <span class="pin">📌 发公众号前的最后一步</span>
+    </div>
+
+    <div class="card-footer">
+        <span class="footer-note">第三步 · 配图与排版</span>
+        <span class="card-page">4 / 7</span>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1440">
+<title>第五步·兜底工具 - Card 6/7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f0f0f0; }
+
+:root {
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F7F6F3;
+    --bg-accent: #F0EFEA;
+    --text-primary: #37352F;
+    --text-secondary: #787774;
+    --text-tertiary: #B4B4B0;
+    --zone-1: #E8F0FE;
+    --zone-2: #FDE8E8;
+    --zone-3: #E8F5E9;
+    --zone-4: #FFF8E1;
+    --accent: #2EAADC;
+    --accent-soft: #90CAF9;
+    --accent-bg: rgba(46, 170, 220, 0.08);
+    --border: #E9E9E7;
+    --border-light: #F1F1EF;
+    --shadow: rgba(55, 53, 47, 0.06);
+    --text-2xl: 52px;
+    --text-xl: 40px;
+    --text-lg: 32px;
+    --text-base: 26px;
+    --text-sm: 22px;
+    --text-xs: 18px;
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.5;
+    --z-background: 0; --z-decoration: 10; --z-content: 20; --z-header: 30; --z-footer: 30;
+}
+
+.card {
+    position: relative;
+    width: 1080px; height: 1440px;
+    padding: 60px;
+    overflow: hidden;
+    font-family: 'Noto Sans SC', "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+}
+.card::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+    background-size: 24px 24px; opacity: 0.5; z-index: var(--z-background);
+}
+
+.card-header { position: relative; z-index: var(--z-header); display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.card-brand { font-size: 20px; color: var(--text-secondary); font-weight: 500; }
+.brand-dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: var(--accent); margin-right: 8px; vertical-align: middle; }
+.card-page { font-size: 18px; color: var(--text-tertiary); }
+
+.stage-bar { position: relative; z-index: var(--z-content); display: flex; align-items: center; gap: 20px; padding-bottom: 24px; border-bottom: 2px solid var(--text-primary); margin-bottom: 32px; }
+.stage-num { font-size: 72px; font-weight: 700; color: var(--accent); line-height: 1; }
+.stage-title { font-size: var(--text-2xl); font-weight: 700; color: var(--text-primary); line-height: var(--line-height-tight); }
+.stage-sub { font-size: var(--text-sm); color: var(--text-secondary); margin-top: 6px; }
+
+.lead { position: relative; z-index: var(--z-content); font-size: var(--text-base); color: var(--text-secondary); line-height: var(--line-height-normal); margin-bottom: 32px; padding: 20px 24px; background: var(--bg-secondary); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; }
+
+.skill-grid { position: relative; z-index: var(--z-content); display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.skill-block { background: var(--bg-primary); border: 1px solid var(--border); border-radius: 10px; padding: 24px; position: relative; }
+.skill-block .name { font-size: var(--text-base); font-weight: 500; color: var(--text-primary); margin-bottom: 8px; font-family: 'SF Mono', Consolas, monospace; }
+.skill-block .desc { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--line-height-normal); margin-bottom: 14px; }
+.skill-block .action { background: var(--accent-bg); border: 1px dashed var(--accent-soft); border-radius: 6px; padding: 12px 14px; font-size: var(--text-xs); color: var(--text-primary); line-height: 1.5; }
+.skill-block .action .pointer { color: var(--accent); font-weight: 700; }
+.skill-block .warn { display: inline-block; margin-top: 10px; font-size: 16px; color: #C05621; background: var(--zone-2); border-radius: 4px; padding: 3px 10px; }
+
+.card-footer { position: absolute; bottom: 36px; left: 60px; right: 60px; z-index: var(--z-footer); display: flex; justify-content: space-between; align-items: center; }
+.footer-note { font-size: 18px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+<div class="card">
+    <div class="card-header">
+        <span class="card-brand"><span class="brand-dot"></span>baoyu · 24 skills</span>
+    </div>
+
+    <div class="stage-bar">
+        <div class="stage-num">05</div>
+        <div>
+            <div class="stage-title">前三步走不顺时</div>
+            <div class="stage-sub">兜底工具 · 4 个技能</div>
+        </div>
+    </div>
+
+    <div class="lead">这三个救场：图片要压缩、要现成 AI 出图、要研究别的 AI 工具怎么实现的。</div>
+
+    <div class="skill-grid">
+        <div class="skill-block">
+            <div class="name">baoyu-compress-image</div>
+            <div class="desc">把图片压成 WebP 或 PNG，自动挑系统里可用的工具链。</div>
+            <div class="action"><span class="pointer">👉</span> 对 Claude 说："用 baoyu-compress-image 压缩这张图。" 然后给出图片路径。</div>
+        </div>
+        <div class="skill-block">
+            <div class="name">baoyu-image-gen</div>
+            <div class="desc">多平台 AI 出图，支持 OpenAI、Google、DashScope、Z.AI 等多家，可批量、可指定比例。</div>
+            <div class="action"><span class="pointer">👉</span> 对 Claude 说："用 baoyu-image-gen 生成一张赛博朋克城市的图，16:9。"</div>
+        </div>
+        <div class="skill-block">
+            <div class="name">baoyu-danger-gemini-web</div>
+            <div class="desc">直接调 Gemini 网页接口生成图文，支持参考图做多模态输入。</div>
+            <div class="action"><span class="pointer">👉</span> 对 Claude 说："用 baoyu-danger-gemini-web 生成一张猫的图。"</div>
+            <span class="warn">⚠ 首次需同意免责 + 登录 Google</span>
+        </div>
+        <div class="skill-block">
+            <div class="name">baoyu-electron-extract</div>
+            <div class="desc">解包 Electron 应用、还原源码。想研究 Cursor、Codex 这类 AI 工具怎么实现时很有用。</div>
+            <div class="action"><span class="pointer">👉</span> 对 Claude 说："用 baoyu-electron-extract 解包 Cursor 的源码。"</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <span class="footer-note">第五步 · 兜底工具</span>
+        <span class="card-page">6 / 7</span>
+    </div>
+</div>
+</body>
+</html>

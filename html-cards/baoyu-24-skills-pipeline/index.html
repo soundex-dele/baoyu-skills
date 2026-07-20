@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>baoyu 24 技能流水线 - 卡片画廊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+body { margin: 0; padding: 48px; background: #F7F6F3; font-family: 'Noto Sans SC', sans-serif; color: #37352F; }
+h1 { text-align: center; margin: 0 0 12px; font-size: 32px; }
+.sub { text-align: center; color: #787774; margin-bottom: 40px; font-size: 16px; }
+.gallery { display: flex; flex-wrap: wrap; gap: 28px; justify-content: center; }
+.gallery-item { text-decoration: none; color: inherit; width: 320px; }
+.gallery-item .frame { width: 320px; height: 427px; border: 1px solid #E9E9E7; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 4px 16px rgba(55,53,47,0.08); transition: transform .15s, box-shadow .15s; }
+.gallery-item:hover .frame { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(55,53,47,0.14); }
+.gallery-item iframe { width: 1080px; height: 1440px; border: 0; transform: scale(0.2963); transform-origin: top left; pointer-events: none; }
+.gallery-item .label { text-align: center; margin-top: 12px; font-size: 14px; color: #787774; }
+.gallery-item .label b { color: #37352F; }
+</style>
+</head>
+<body>
+<h1>baoyu 24 技能 · 内容生产流水线</h1>
+<div class="sub">notion 知识卡 · 3:4 · 7 张 · 读完即上手</div>
+<div class="gallery">
+    <a class="gallery-item" href="01-cover-pipeline.html" target="_blank">
+        <div class="frame"><iframe src="01-cover-pipeline.html" loading="lazy" scrolling="no"></iframe></div>
+        <div class="label"><b>01</b> · 封面</div>
+    </a>
+    <a class="gallery-item" href="02-collect-materials.html" target="_blank">
+        <div class="frame"><iframe src="02-collect-materials.html" loading="lazy" scrolling="no"></iframe></div>
+        <div class="label"><b>02</b> · 第一步 采集素材</div>
+    </a>
+    <a class="gallery-item" href="03-generate-content.html" target="_blank">
+        <div class="frame"><iframe src="03-generate-content.html" loading="lazy" scrolling="no"></iframe></div>
+        <div class="label"><b>03</b> · 第二步 生成内容</div>
+    </a>
+    <a class="gallery-item" href="04-illustrate-layout.html" target="_blank">
+        <div class="frame"><iframe src="04-illustrate-layout.html" loading="lazy" scrolling="no"></iframe></div>
+        <div class="label"><b>04</b> · 第三步 配图排版</div>
+    </a>
+    <a class="gallery-item" href="05-publish.html" target="_blank">
+        <div class="frame"><iframe src="05-publish.html" loading="lazy" scrolling="no"></iframe></div>
+        <div class="label"><b>05</b> · 第四步 一键发布</div>
+    </a>
+    <a class="gallery-item" href="06-utils.html" target="_blank">
+        <div class="frame"><iframe src="06-utils.html" loading="lazy" scrolling="no"></iframe></div>
+        <div class="label"><b>06</b> · 第五步 兜底工具</div>
+    </a>
+    <a class="gallery-item" href="07-ending-start.html" target="_blank">
+        <div class="frame"><iframe src="07-ending-start.html" loading="lazy" scrolling="no"></iframe></div>
+        <div class="label"><b>07</b> · 怎么开始用</div>
+    </a>
+</div>
+</body>
+</html>

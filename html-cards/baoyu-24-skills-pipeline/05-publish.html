@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1440">
+<title>第四步·一键发布 - Card 5/7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f0f0f0; }
+
+:root {
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F7F6F3;
+    --bg-accent: #F0EFEA;
+    --text-primary: #37352F;
+    --text-secondary: #787774;
+    --text-tertiary: #B4B4B0;
+    --zone-1: #E8F0FE;
+    --zone-2: #FDE8E8;
+    --zone-3: #E8F5E9;
+    --zone-4: #FFF8E1;
+    --accent: #2EAADC;
+    --accent-soft: #90CAF9;
+    --accent-bg: rgba(46, 170, 220, 0.08);
+    --border: #E9E9E7;
+    --border-light: #F1F1EF;
+    --shadow: rgba(55, 53, 47, 0.06);
+    --text-2xl: 52px;
+    --text-xl: 40px;
+    --text-lg: 32px;
+    --text-base: 26px;
+    --text-sm: 22px;
+    --text-xs: 18px;
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.5;
+    --z-background: 0; --z-decoration: 10; --z-content: 20; --z-header: 30; --z-footer: 30;
+}
+
+.card {
+    position: relative;
+    width: 1080px; height: 1440px;
+    padding: 60px;
+    overflow: hidden;
+    font-family: 'Noto Sans SC', "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+}
+.card::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+    background-size: 24px 24px; opacity: 0.5; z-index: var(--z-background);
+}
+
+.card-header { position: relative; z-index: var(--z-header); display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.card-brand { font-size: 20px; color: var(--text-secondary); font-weight: 500; }
+.brand-dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: var(--accent); margin-right: 8px; vertical-align: middle; }
+.card-page { font-size: 18px; color: var(--text-tertiary); }
+
+.stage-bar { position: relative; z-index: var(--z-content); display: flex; align-items: center; gap: 20px; padding-bottom: 24px; border-bottom: 2px solid var(--text-primary); margin-bottom: 32px; }
+.stage-num { font-size: 72px; font-weight: 700; color: var(--accent); line-height: 1; }
+.stage-title { font-size: var(--text-2xl); font-weight: 700; color: var(--text-primary); line-height: var(--line-height-tight); }
+.stage-sub { font-size: var(--text-sm); color: var(--text-secondary); margin-top: 6px; }
+
+.lead { position: relative; z-index: var(--z-content); font-size: var(--text-base); color: var(--text-secondary); line-height: var(--line-height-normal); margin-bottom: 40px; padding: 20px 24px; background: var(--bg-secondary); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; }
+
+.platform-list { position: relative; z-index: var(--z-content); display: flex; flex-direction: column; gap: 24px; }
+.platform-row { display: flex; gap: 24px; align-items: stretch; }
+.platform-emoji { font-size: 56px; width: 100px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; }
+.platform-body { flex: 1; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; }
+.platform-body .name { font-size: var(--text-lg); font-weight: 700; color: var(--text-primary); margin-bottom: 6px; font-family: 'SF Mono', Consolas, monospace; }
+.platform-body .desc { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--line-height-normal); margin-bottom: 14px; }
+.platform-body .action { background: var(--accent-bg); border: 1px dashed var(--accent-soft); border-radius: 6px; padding: 12px 16px; font-size: var(--text-xs); color: var(--text-primary); line-height: 1.5; }
+.platform-body .action .pointer { color: var(--accent); font-weight: 700; }
+
+.card-footer { position: absolute; bottom: 36px; left: 60px; right: 60px; z-index: var(--z-footer); display: flex; justify-content: space-between; align-items: center; }
+.footer-note { font-size: 18px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+<div class="card">
+    <div class="card-header">
+        <span class="card-brand"><span class="brand-dot"></span>baoyu · 24 skills</span>
+    </div>
+
+    <div class="stage-bar">
+        <div class="stage-num">04</div>
+        <div>
+            <div class="stage-title">一键发出去</div>
+            <div class="stage-sub">发布分发 · 3 个技能</div>
+        </div>
+    </div>
+
+    <div class="lead">内容做好了，不用再切到各个平台手动粘贴。对 Claude 说一句话，它打开填好内容的窗口，你确认后发布。</div>
+
+    <div class="platform-list">
+        <div class="platform-row">
+            <div class="platform-emoji">💬</div>
+            <div class="platform-body">
+                <div class="name">baoyu-post-to-wechat</div>
+                <div class="desc">把 markdown / HTML / 纯文本发到微信公众号草稿箱，md 默认外链转底部引用。三种发布方式可选。</div>
+                <div class="action"><span class="pointer">👉</span> 对 Claude 说："用 baoyu-post-to-wechat 把这篇 md 发到公众号。" 然后给出路径。</div>
+            </div>
+        </div>
+        <div class="platform-row">
+            <div class="platform-emoji">🌐</div>
+            <div class="platform-body">
+                <div class="name">baoyu-post-to-weibo</div>
+                <div class="desc">发微博动态或头条文章，可带图和视频。会打开填好内容的微博窗口，你确认后发布。</div>
+                <div class="action"><span class="pointer">👉</span> 对 Claude 说："用 baoyu-post-to-weibo 发一条带图的微博。" 然后给出文本和图片。</div>
+            </div>
+        </div>
+        <div class="platform-row">
+            <div class="platform-emoji">✦</div>
+            <div class="platform-body">
+                <div class="name">baoyu-post-to-x</div>
+                <div class="desc">在 X 发推文、视频或长文（长文需 Premium）。同样打开填好内容的窗口供你确认。</div>
+                <div class="action"><span class="pointer">👉</span> 对 Claude 说："用 baoyu-post-to-x 发一条推文。" 然后给出文本。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <span class="footer-note">第四步 · 一键发布</span>
+        <span class="card-page">5 / 7</span>
+    </div>
+</div>
+</body>
+</html>

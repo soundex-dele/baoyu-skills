@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1440">
+<title>怎么开始用 - Card 7/7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f0f0f0; }
+
+:root {
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F7F6F3;
+    --bg-accent: #F0EFEA;
+    --text-primary: #37352F;
+    --text-secondary: #787774;
+    --text-tertiary: #B4B4B0;
+    --zone-1: #E8F0FE;
+    --zone-2: #FDE8E8;
+    --zone-3: #E8F5E9;
+    --zone-4: #FFF8E1;
+    --accent: #2EAADC;
+    --accent-soft: #90CAF9;
+    --accent-bg: rgba(46, 170, 220, 0.08);
+    --border: #E9E9E7;
+    --border-light: #F1F1EF;
+    --shadow: rgba(55, 53, 47, 0.06);
+    --text-2xl: 52px;
+    --text-3xl: 64px;
+    --text-xl: 40px;
+    --text-lg: 32px;
+    --text-base: 28px;
+    --text-sm: 24px;
+    --text-xs: 20px;
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.5;
+    --z-background: 0; --z-decoration: 10; --z-content: 20; --z-header: 30; --z-footer: 30;
+}
+
+.card {
+    position: relative;
+    width: 1080px; height: 1440px;
+    padding: 60px;
+    overflow: hidden;
+    font-family: 'Noto Sans SC', "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+}
+.card::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+    background-size: 24px 24px; opacity: 0.5; z-index: var(--z-background);
+}
+
+.card-header { position: relative; z-index: var(--z-header); display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.card-brand { font-size: 22px; color: var(--text-secondary); font-weight: 500; }
+.brand-dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: var(--accent); margin-right: 8px; vertical-align: middle; }
+.card-page { font-size: 20px; color: var(--text-tertiary); }
+
+.card-content { position: relative; z-index: var(--z-content); display: flex; flex-direction: column; gap: 36px; height: calc(100% - 120px); }
+
+.headline { font-size: var(--text-3xl); font-weight: 700; color: var(--text-primary); line-height: var(--line-height-tight); }
+.headline .text-highlight { background: linear-gradient(180deg, transparent 55%, #FFEAA7 55%); padding: 0 6px; }
+
+.start-block { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; }
+.start-block .num { font-size: var(--text-xl); font-weight: 700; color: var(--accent); margin-bottom: 12px; }
+.start-block .body { font-size: var(--text-base); color: var(--text-secondary); line-height: var(--line-height-normal); }
+.start-block .body b { color: var(--text-primary); }
+
+.warn-box { background: var(--zone-4); border: 1px solid #F6AD55; border-radius: 12px; padding: 28px 36px; }
+.warn-box .title { font-size: var(--text-lg); font-weight: 700; color: var(--text-primary); margin-bottom: 16px; }
+.warn-box ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.warn-box li { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--line-height-normal); padding-left: 32px; position: relative; }
+.warn-box li::before { content: '⚠'; position: absolute; left: 0; color: #C05621; }
+.warn-box li code { font-family: 'SF Mono', Consolas, monospace; color: var(--text-primary); }
+
+.cta { background: var(--accent-bg); border: 2px dashed var(--accent-soft); border-radius: 12px; padding: 32px 36px; text-align: center; }
+.cta .q { font-size: var(--text-lg); font-weight: 700; color: var(--text-primary); line-height: var(--line-height-normal); margin-bottom: 12px; }
+.cta .a { font-size: var(--text-base); color: var(--accent); font-weight: 500; }
+
+.card-footer { position: absolute; bottom: 40px; left: 60px; right: 60px; z-index: var(--z-footer); display: flex; justify-content: space-between; align-items: center; }
+.footer-note { font-size: 20px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+<div class="card">
+    <div class="card-header">
+        <span class="card-brand"><span class="brand-dot"></span>baoyu · 24 skills</span>
+    </div>
+
+    <div class="card-content">
+        <h1 class="headline">不用记 24 个，<br>先<span class="text-highlight">跑通一条</span>。</h1>
+
+        <div class="start-block">
+            <div class="num">01</div>
+            <div class="body">挑流水线上你目前<b>最痛的那一步</b>——多半是配图或排版。<br><br>把那一句指令念给 Claude 听，先把一条跑通。跑通一条，你自然会想把上下游也串起来——这 24 个技能的价值就在于它们本来就设计成能首尾相接。</div>
+        </div>
+
+        <div class="warn-box">
+            <div class="title">三个前置条件提醒</div>
+            <ul>
+                <li>带 <code>danger</code> 前缀的两个技能（x-to-markdown、gemini-web）走非官方接口，首次需同意免责声明。</li>
+                <li><code>baoyu-wechat-summary</code> 要先装 wx-cli 并初始化。</li>
+                <li><code>baoyu-electron-extract</code> 是给想扒 AI 工具源码的人准备的。</li>
+            </ul>
+        </div>
+
+        <div class="cta">
+            <div class="q">你现在卡在内容生产的哪一步？</div>
+            <div class="a">挑一句上面的指令，今天先跑通一个技能试试 👉</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <span class="footer-note">baoyu 24 技能 · 内容生产流水线</span>
+        <span class="card-page">7 / 7</span>
+    </div>
+</div>
+</body>
+</html>
