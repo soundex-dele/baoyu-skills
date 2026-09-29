@@ -127,7 +127,15 @@ export async function convertMarkdown(
     mermaidProcessedBody,
     "MDTOHTMLIMGPH_",
   );
-  const rewrittenMarkdown = `${serializeFrontmatter(effectiveFrontmatter)}${rewrittenBody}`;
+  // Put image nodes through CSS inlining so theme borders/radii survive export.
+  // Keep placeholder URLs until paths have been resolved below.
+  let styledImageBody = rewrittenBody;
+  for (const image of images) {
+    styledImageBody = styledImageBody.replace(image.placeholder, () =>
+      `<img src="${image.placeholder}" alt="${escapeHtmlAttribute(image.alt ?? "")}" `
+      + `style="display: block; width: 100%; margin: 1.5em auto;">`);
+  }
+  const rewrittenMarkdown = `${serializeFrontmatter(effectiveFrontmatter)}${styledImageBody}`;
 
   console.error(
     `[markdown-to-html] Rendering with theme: ${theme ?? "default"}, keepTitle: ${keepTitle}, citeStatus: ${citeStatus}`,
@@ -169,13 +177,9 @@ export async function convertMarkdown(
 
   let finalContent = fs.readFileSync(finalHtmlPath, "utf-8");
   for (const image of contentImages) {
-    const altAttr = image.alt !== undefined
-      ? ` alt="${escapeHtmlAttribute(image.alt)}"`
-      : "";
-    const imgTag = `<img src="${escapeHtmlAttribute(image.originalPath)}" `
-      + `data-local-path="${escapeHtmlAttribute(image.localPath)}"${altAttr} `
-      + `style="display: block; width: 100%; margin: 1.5em auto;">`;
-    finalContent = finalContent.replace(image.placeholder, imgTag);
+    finalContent = finalContent.replace(`src="${image.placeholder}"`, () =>
+      `src="${escapeHtmlAttribute(image.originalPath)}" `
+      + `data-local-path="${escapeHtmlAttribute(image.localPath)}"`);
   }
   fs.writeFileSync(finalHtmlPath, finalContent, "utf-8");
 

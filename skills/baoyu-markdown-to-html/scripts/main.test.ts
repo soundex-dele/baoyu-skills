@@ -7,6 +7,7 @@ import process from "node:process";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
+import { parseHTML } from "linkedom";
 
 const execFileAsync = promisify(execFile);
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -82,6 +83,7 @@ test("CLI renders Obsidian wikilink images with alt text and Attachments fallbac
       "tsx",
       SCRIPT_PATH,
       markdownPath,
+      "--theme", "xhs-cream",
       "--keep-title",
     ],
     { cwd: SCRIPT_DIR },
@@ -121,9 +123,15 @@ test("CLI renders Obsidian wikilink images with alt text and Attachments fallbac
   );
 
   const html = await fs.readFile(result.htmlPath, "utf-8");
-  assert.match(html, /<img src="a\.png" data-local-path="[^"]+a\.png" alt=""/);
-  assert.match(
-    html,
-    /<img src="b\.webp" data-local-path="[^"]+Attachments[^"]+b\.webp" alt="B alt"/,
-  );
+  const { document } = parseHTML(html);
+  const images = [...document.querySelectorAll("img")];
+  assert.equal(images.length, 2);
+  assert.equal(images[0]!.getAttribute("src"), "a.png");
+  assert.equal(images[0]!.getAttribute("alt"), "");
+  assert.equal(images[0]!.getAttribute("data-local-path"), path.join(root, "a.png"));
+  assert.equal(images[1]!.getAttribute("src"), "b.webp");
+  assert.equal(images[1]!.getAttribute("alt"), "B alt");
+  assert.equal(images[1]!.getAttribute("data-local-path"), path.join(attachmentsDir, "b.webp"));
+  assert.equal(images[0]!.style.getPropertyValue("border-radius"), "14px");
+  assert.match(images[0]!.style.getPropertyValue("border"), /6px solid/);
 });

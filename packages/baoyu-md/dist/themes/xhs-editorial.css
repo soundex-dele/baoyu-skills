@@ -1,0 +1,9 @@
+/* 极简杂志：衬线大标题、朱红细节、直角分隔。 */
+h1 { font-family: 'Noto Serif CJK SC', 'Songti SC', SimSun, serif; padding: 16px 0 22px; border-top: 4px solid #292724; border-bottom: 1px solid #292724; font-weight: 700; }
+h2 { padding-bottom: 10px; border-bottom: 1px solid var(--md-accent-color); letter-spacing: 0.035em; }
+h3 { border-left: 0; padding-left: 0; color: var(--md-primary-color); }
+blockquote { padding: 14px 0 14px 18px; border-radius: 0; background: transparent; border-left-width: 2px; }
+li { padding: 10px 0; border-bottom: 1px solid var(--md-accent-color); }
+img, pre.code__pre, .hljs.code__pre { border-radius: 0; }
+figcaption, .md-figcaption { text-align: left; }
+strong { text-decoration: underline; text-decoration-color: var(--md-accent-color); text-underline-offset: 4px; }

@@ -1,0 +1,8 @@
+/* 奶油手账：暖纸底、圆角便签、柔和荧光笔。 */
+h1 { color: var(--md-primary-color); }
+h2 { display: table; padding: 6px 16px; background: var(--md-accent-color); border-radius: 16px 16px 16px 3px; }
+blockquote { border: 1px solid var(--md-accent-color); border-radius: 18px; box-shadow: 0 4px 0 var(--md-accent-color); }
+li { background: #FFFDFA; border: 1px solid var(--md-accent-color); border-radius: 10px; }
+strong { background: var(--md-accent-color); padding: 0 3px; border-radius: 3px; }
+img { border: 6px solid #FFFDFA; border-radius: 14px; }
+hr { border-top-style: dashed; }

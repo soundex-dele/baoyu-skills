@@ -26,7 +26,10 @@ function resolveModuleDir(metaUrl?: string): string {
 const SCRIPT_DIR = resolveModuleDir(import.meta.url);
 export const THEME_DIR = path.resolve(SCRIPT_DIR, "themes");
 const FALLBACK_THEMES: ThemeName[] = ["default", "grace", "simple"];
-const THEMES_EXTENDING_DEFAULT = new Set<ThemeName>(["grace", "simple"]);
+const SOCIAL_THEMES = new Set<ThemeName>([
+  "xhs-cream", "xhs-editorial", "xhs-bold", "xhs-mint", "xhs-journal", "xhs-lilac",
+]);
+const THEMES_EXTENDING_DEFAULT = new Set<ThemeName>(["grace", "simple", ...SOCIAL_THEMES]);
 
 function stripOutputScope(cssContent: string): string {
   let css = cssContent;
@@ -79,6 +82,9 @@ export function loadThemeCss(theme: ThemeName): {
       throw new Error(`Missing default theme CSS: ${defaultThemePath}`);
     }
     layeredThemeCss.push(fs.readFileSync(defaultThemePath, "utf-8"));
+  }
+  if (SOCIAL_THEMES.has(theme)) {
+    layeredThemeCss.push(fs.readFileSync(path.join(THEME_DIR, "shared", "social.css"), "utf-8"));
   }
   layeredThemeCss.push(fs.readFileSync(themePath, "utf-8"));
 

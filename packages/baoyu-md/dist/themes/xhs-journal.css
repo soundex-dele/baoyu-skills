@@ -1,0 +1,8 @@
+/* 复古笔记：牛皮纸、虚线标签、笔记横线。纹理只作装饰。 */
+h1 { font-family: 'Noto Serif CJK SC', 'Songti SC', SimSun, serif; color: var(--md-primary-color); font-weight: 700; }
+h2 { display: table; padding: 6px 12px; border: 1px dashed var(--md-primary-color); background: var(--blockquote-background); border-radius: 3px; }
+blockquote { border: 1px solid var(--md-accent-color); border-left: 4px solid var(--md-primary-color); border-radius: 2px; background-image: repeating-linear-gradient(transparent, transparent 31px, #DDC8A655 31px, #DDC8A655 32px); }
+li { padding: 10px 4px; border-bottom: 1px dashed var(--md-accent-color); }
+strong { background: var(--md-accent-color); padding: 0 2px; }
+img { padding: 6px; border: 1px solid var(--md-accent-color); background: #FFFDF7; border-radius: 2px; }
+hr { border-top: 2px dashed var(--md-accent-color); }

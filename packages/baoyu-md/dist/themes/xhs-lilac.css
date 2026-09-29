@@ -1,0 +1,8 @@
+/* 莓紫灵感：淡紫画布、胶囊标签、细边圆角卡片。 */
+h1 { color: var(--md-primary-color); letter-spacing: 0.025em; }
+h2 { display: table; padding: 7px 18px; border: 1px solid var(--md-primary-color); background: var(--blockquote-background); border-radius: 28px; }
+blockquote { border: 1px solid var(--md-accent-color); border-top: 4px solid var(--md-primary-color); border-radius: 16px; background: #FFFFFF; }
+li { border: 1px solid var(--md-accent-color); border-radius: 14px; background: #FFFFFF; }
+strong { background: var(--md-accent-color); border-radius: 5px; padding: 1px 4px; }
+img { border-radius: 18px; border: 1px solid var(--md-accent-color); }
+hr { width: 48px; margin: 28px auto; border-top: 4px solid var(--md-accent-color); }

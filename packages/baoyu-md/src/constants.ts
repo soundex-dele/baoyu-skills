@@ -56,6 +56,30 @@ export const DEFAULT_STYLE: StyleConfig = {
 };
 
 export const THEME_STYLE_DEFAULTS: Record<string, Partial<StyleConfig>> = {
+  "xhs-cream": {
+    primaryColor: "#8B492F", accentColor: "#F2DFC2", containerBg: "#FFF9EE",
+    blockquoteBackground: "#F7ECD8",
+  },
+  "xhs-editorial": {
+    primaryColor: "#AD342C", accentColor: "#DED9D0", containerBg: "#FAF9F6",
+    blockquoteBackground: "#F0EDE7",
+  },
+  "xhs-bold": {
+    primaryColor: "#A82D23", accentColor: "#FFE46B", containerBg: "#FFFEF8",
+    blockquoteBackground: "#FFF2A8",
+  },
+  "xhs-mint": {
+    primaryColor: "#25634F", accentColor: "#CDE7D9", containerBg: "#F3FAF5",
+    blockquoteBackground: "#E1F0E6",
+  },
+  "xhs-journal": {
+    primaryColor: "#76513D", accentColor: "#DDC8A6", containerBg: "#F9F3E7",
+    blockquoteBackground: "#F1E7D4",
+  },
+  "xhs-lilac": {
+    primaryColor: "#654484", accentColor: "#E2D5F1", containerBg: "#FAF7FF",
+    blockquoteBackground: "#F0E8FA",
+  },
   default: {
     primaryColor: COLOR_PRESETS.blue,
   },

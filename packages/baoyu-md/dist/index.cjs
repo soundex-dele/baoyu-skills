@@ -46966,6 +46966,42 @@ var DEFAULT_STYLE = {
   containerBg: "transparent"
 };
 var THEME_STYLE_DEFAULTS = {
+  "xhs-cream": {
+    primaryColor: "#8B492F",
+    accentColor: "#F2DFC2",
+    containerBg: "#FFF9EE",
+    blockquoteBackground: "#F7ECD8"
+  },
+  "xhs-editorial": {
+    primaryColor: "#AD342C",
+    accentColor: "#DED9D0",
+    containerBg: "#FAF9F6",
+    blockquoteBackground: "#F0EDE7"
+  },
+  "xhs-bold": {
+    primaryColor: "#A82D23",
+    accentColor: "#FFE46B",
+    containerBg: "#FFFEF8",
+    blockquoteBackground: "#FFF2A8"
+  },
+  "xhs-mint": {
+    primaryColor: "#25634F",
+    accentColor: "#CDE7D9",
+    containerBg: "#F3FAF5",
+    blockquoteBackground: "#E1F0E6"
+  },
+  "xhs-journal": {
+    primaryColor: "#76513D",
+    accentColor: "#DDC8A6",
+    containerBg: "#F9F3E7",
+    blockquoteBackground: "#F1E7D4"
+  },
+  "xhs-lilac": {
+    primaryColor: "#654484",
+    accentColor: "#E2D5F1",
+    containerBg: "#FAF7FF",
+    blockquoteBackground: "#F0E8FA"
+  },
   default: {
     primaryColor: COLOR_PRESETS.blue
   },
@@ -47016,7 +47052,15 @@ function resolveModuleDir(metaUrl) {
 var SCRIPT_DIR = resolveModuleDir(undefined);
 var THEME_DIR = import_node_path.default.resolve(SCRIPT_DIR, "themes");
 var FALLBACK_THEMES = ["default", "grace", "simple"];
-var THEMES_EXTENDING_DEFAULT = new Set(["grace", "simple"]);
+var SOCIAL_THEMES = new Set([
+  "xhs-cream",
+  "xhs-editorial",
+  "xhs-bold",
+  "xhs-mint",
+  "xhs-journal",
+  "xhs-lilac"
+]);
+var THEMES_EXTENDING_DEFAULT = new Set(["grace", "simple", ...SOCIAL_THEMES]);
 function stripOutputScope(cssContent) {
   let css = cssContent;
   css = css.replace(/#output\s*\{/g, "body {");
@@ -47052,6 +47096,9 @@ function loadThemeCss(theme) {
       throw new Error(`Missing default theme CSS: ${defaultThemePath}`);
     }
     layeredThemeCss.push(import_node_fs.default.readFileSync(defaultThemePath, "utf-8"));
+  }
+  if (SOCIAL_THEMES.has(theme)) {
+    layeredThemeCss.push(import_node_fs.default.readFileSync(import_node_path.default.join(THEME_DIR, "shared", "social.css"), "utf-8"));
   }
   layeredThemeCss.push(import_node_fs.default.readFileSync(themePath, "utf-8"));
   return {

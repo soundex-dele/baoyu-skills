@@ -117,7 +117,7 @@ ${BUN_X} {baseDir}/scripts/main.ts <markdown_file> [options]
 
 | Option | Description | Default |
 |--------|-------------|---------|
-| `--theme <name>` | Theme name (default, grace, simple, modern) | default |
+| `--theme <name>` | Theme name from the [Themes](#themes) table, including six `xhs-*` social styles | default |
 | `--color <name\|hex>` | Primary color: preset name or hex value | theme default |
 | `--font-family <name>` | Font: sans, serif, serif-cjk, mono, or CSS value | theme default |
 | `--font-size <N>` | Font size: 14px, 15px, 16px, 17px, 18px | 16px |
@@ -216,6 +216,28 @@ ${BUN_X} {baseDir}/scripts/main.ts article.md --title "My Article"
 | `grace` | Elegant - text shadow, rounded cards, refined blockquotes (by @brzhang) |
 | `simple` | Minimal - modern minimalist, asymmetric rounded corners, clean whitespace (by @okooo5km) |
 | `modern` | Modern - large radius, pill-shaped titles, relaxed line height (pair with `--color red` for traditional red-gold style) |
+| `xhs-cream` | 奶油手账 — 米白纸底、焦糖标题、圆角便签；生活分享、读书、好物清单 |
+| `xhs-editorial` | 极简杂志 — 衬线大标题、朱红点缀、细线分隔；审美、穿搭、旅行随笔 |
+| `xhs-bold` | 醒目干货 — 柠檬黄标签、黑色粗框、重点高亮；教程、避坑、知识总结 |
+| `xhs-mint` | 薄荷清单 — 清浅绿底、步骤条、叶片圆角；习惯养成、健康生活、整理计划 |
+| `xhs-journal` | 复古笔记 — 牛皮纸色、虚线标签、笔记横线；学习笔记、书摘、手账 |
+| `xhs-lilac` | 莓紫灵感 — 淡紫画布、胶囊标题、细边卡片；自我成长、情绪记录、灵感收集 |
+
+### 小红书风格图文
+
+用户提出“小红书风格”但没有指定配色时，可按内容从上表选择：生活类用 `xhs-cream`，知识教程用 `xhs-bold`，其他按题材匹配。保留用户明确指定的主题。
+
+```bash
+${BUN_X} {baseDir}/scripts/main.ts article.md --theme xhs-cream --keep-title
+${BUN_X} {baseDir}/scripts/main.ts article.md --theme xhs-bold --keep-title --font-size 18
+${BUN_X} {baseDir}/scripts/main.ts article.md --theme xhs-mint --keep-title --color olive
+```
+
+这些主题只调整视觉样式，不改写正文、不自动添加“收藏点赞”等文案。制作图文时建议 `--keep-title` 保留首个标题；正文用二级标题组织主题、引用呈现结论、列表列步骤，图片提供 alt 文本。主题保留长文自然高度，不按固定画幅裁断内容。需要 3:4 / 16:9 多页图片时再对生成的 HTML 分页；PNG 像素尺寸由后续截图尺寸和倍率决定。
+
+预览素材在 [examples/social-themes.md](examples/social-themes.md)。运行 `${BUN_X} {baseDir}/scripts/preview-social-themes.ts` 可生成六套完整预览及 `examples/preview/index.html` 选型页。
+
+主题源码位于同仓库 `packages/baoyu-md/src/themes/`，配色默认值在 `src/constants.ts`，通过共享包自动发现并内联。修改后在 `packages/baoyu-md` 目录运行 `bun ../../scripts/build-shared-package.mjs --external mermaid --external @antv/infographic --asset src/themes:themes --asset src/code-themes:code-themes` 更新运行时。单独复制技能目录时，还需使用包含这六套主题的本地构建版 `baoyu-md`；旧版 npm 包不包含新增主题。
 
 ## Supported Markdown Features
 
