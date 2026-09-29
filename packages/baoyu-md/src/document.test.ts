@@ -97,7 +97,7 @@ test("resolveMarkdownStyle merges theme defaults with explicit overrides", () =>
 
   assert.equal(style.primaryColor, "#112233");
   assert.equal(style.fontFamily, "Custom Sans");
-  assert.equal(style.fontSize, "15px");
+  assert.equal(style.fontSize, "16px");
   assert.equal(style.containerBg, "rgba(250, 249, 245, 1)");
 });
 
@@ -160,8 +160,8 @@ test("renderMarkdownDocument layers default rules into grace theme before CSS in
   );
 
   const h2Style = findInlineStyle(html, "h2", "Section");
-  assert.match(h2Style, /background: #92617E/);
-  assert.match(h2Style, /box-shadow: 0 4px 6px rgba\(0, 0, 0, 0\.1\)/);
+  assert.match(h2Style, /background: #79516C/);
+  assert.match(h2Style, /box-shadow: 0 3px 0 #E7DCE3/);
 
   const pMatch = html.match(/<p[^>]*style="([^"]*)"[^>]*>/);
   assert.ok(pMatch, "Expected inline style on <p> tag");

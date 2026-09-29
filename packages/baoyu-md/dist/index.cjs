@@ -47003,21 +47003,27 @@ var THEME_STYLE_DEFAULTS = {
     blockquoteBackground: "#F0E8FA"
   },
   default: {
-    primaryColor: COLOR_PRESETS.blue
+    primaryColor: COLOR_PRESETS.blue,
+    accentColor: "#D8E4ED",
+    blockquoteBackground: "#F2F6FA"
   },
   grace: {
-    primaryColor: COLOR_PRESETS.purple
+    primaryColor: "#79516C",
+    accentColor: "#E7DCE3",
+    blockquoteBackground: "#FAF6F9"
   },
   simple: {
-    primaryColor: COLOR_PRESETS.green
+    primaryColor: "#216B58",
+    accentColor: "#DCE8E2",
+    blockquoteBackground: "#F1F7F4"
   },
   modern: {
-    primaryColor: COLOR_PRESETS.orange,
-    accentColor: "#E4B1A0",
+    primaryColor: "#A64B32",
+    accentColor: "#EAD6CA",
     containerBg: "rgba(250, 249, 245, 1)",
     fontFamily: FONT_FAMILY_MAP.sans,
-    fontSize: "15px",
-    blockquoteBackground: "rgba(255, 255, 255, 0.6)"
+    fontSize: "16px",
+    blockquoteBackground: "#F5EAE1"
   }
 };
 var macCodeSvg = `
@@ -47060,7 +47066,7 @@ var SOCIAL_THEMES = new Set([
   "xhs-journal",
   "xhs-lilac"
 ]);
-var THEMES_EXTENDING_DEFAULT = new Set(["grace", "simple", ...SOCIAL_THEMES]);
+var THEMES_EXTENDING_DEFAULT = new Set(["grace", "simple", "modern", ...SOCIAL_THEMES]);
 function stripOutputScope(cssContent) {
   let css = cssContent;
   css = css.replace(/#output\s*\{/g, "body {");

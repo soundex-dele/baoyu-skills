@@ -29,7 +29,7 @@ const FALLBACK_THEMES: ThemeName[] = ["default", "grace", "simple"];
 const SOCIAL_THEMES = new Set<ThemeName>([
   "xhs-cream", "xhs-editorial", "xhs-bold", "xhs-mint", "xhs-journal", "xhs-lilac",
 ]);
-const THEMES_EXTENDING_DEFAULT = new Set<ThemeName>(["grace", "simple", ...SOCIAL_THEMES]);
+const THEMES_EXTENDING_DEFAULT = new Set<ThemeName>(["grace", "simple", "modern", ...SOCIAL_THEMES]);
 
 function stripOutputScope(cssContent: string): string {
   let css = cssContent;

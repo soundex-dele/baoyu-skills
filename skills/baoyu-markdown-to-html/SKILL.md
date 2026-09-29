@@ -147,7 +147,7 @@ ${BUN_X} {baseDir}/scripts/main.ts <markdown_file> [options]
 | gray | #A9A9A9 | Smoke Gray |
 | pink | #FFB7C5 | Sakura Pink |
 | red | #A93226 | China Red |
-| orange | #D97757 | Warm Orange (modern default) |
+| orange | #D97757 | Warm Orange (optional preset) |
 
 **Examples:**
 
@@ -212,15 +212,15 @@ ${BUN_X} {baseDir}/scripts/main.ts article.md --title "My Article"
 
 | Theme | Description |
 |-------|-------------|
-| `default` | Classic - traditional layout, centered title with bottom border, H2 with white text on colored background |
-| `grace` | Elegant - text shadow, rounded cards, refined blockquotes (by @brzhang) |
-| `simple` | Minimal - modern minimalist, asymmetric rounded corners, clean whitespace (by @okooo5km) |
-| `modern` | Modern - large radius, pill-shaped titles, relaxed line height (pair with `--color red` for traditional red-gold style) |
+| `default` | 经典蓝 — 居中篇名、蓝色章节标签、清晰的正文层级；深度长文、行业观察 |
+| `grace` | 雅致梅紫 — 衬线篇名、梅紫标签、细边引用卡片；人文、读书、品牌故事（by @brzhang） |
+| `simple` | 极简青绿 — 左对齐标题、轻量分隔、大方留白；工具、产品、清爽长文（by @okooo5km） |
+| `modern` | 暖橙现代 — 暖白纸面、圆角章节、16px 正文；生活方式、创作分享 (pair with `--color red` for traditional red-gold style) |
 | `xhs-cream` | 奶油手账 — 米白纸底、焦糖标题、圆角便签；生活分享、读书、好物清单 |
 | `xhs-editorial` | 极简杂志 — 衬线大标题、朱红点缀、细线分隔；审美、穿搭、旅行随笔 |
-| `xhs-bold` | 醒目干货 — 柠檬黄标签、黑色粗框、重点高亮；教程、避坑、知识总结 |
+| `xhs-bold` | 醒目干货 — 柠檬黄标签、炭黑边框、重点高亮；教程、避坑、知识总结 |
 | `xhs-mint` | 薄荷清单 — 清浅绿底、步骤条、叶片圆角；习惯养成、健康生活、整理计划 |
-| `xhs-journal` | 复古笔记 — 牛皮纸色、虚线标签、笔记横线；学习笔记、书摘、手账 |
+| `xhs-journal` | 复古笔记 — 牛皮纸色、虚线标签、纸张细边；学习笔记、书摘、手账 |
 | `xhs-lilac` | 莓紫灵感 — 淡紫画布、胶囊标题、细边卡片；自我成长、情绪记录、灵感收集 |
 
 ### 小红书风格图文
@@ -235,7 +235,9 @@ ${BUN_X} {baseDir}/scripts/main.ts article.md --theme xhs-mint --keep-title --co
 
 这些主题只调整视觉样式，不改写正文、不自动添加“收藏点赞”等文案。制作图文时建议 `--keep-title` 保留首个标题；正文用二级标题组织主题、引用呈现结论、列表列步骤，图片提供 alt 文本。主题保留长文自然高度，不按固定画幅裁断内容。需要 3:4 / 16:9 多页图片时再对生成的 HTML 分页；PNG 像素尺寸由后续截图尺寸和倍率决定。
 
-预览素材在 [examples/social-themes.md](examples/social-themes.md)。运行 `${BUN_X} {baseDir}/scripts/preview-social-themes.ts` 可生成六套完整预览及 `examples/preview/index.html` 选型页。
+预览素材在 [examples/social-themes.md](examples/social-themes.md)。运行 `${BUN_X} {baseDir}/scripts/preview-social-themes.ts` 可生成全部十套完整预览及 `examples/preview/index.html` 选型页，支持按「经典长文 / 图文风格」筛选。
+
+十套主题共享阅读间距与组件样式，默认正文 16px；支持窄屏自然换行、表格长词折行、代码块局部滚动（图文主题代码自动换行）。样式使用本地字体回退，不加载外部字体。
 
 主题源码位于同仓库 `packages/baoyu-md/src/themes/`，配色默认值在 `src/constants.ts`，通过共享包自动发现并内联。修改后在 `packages/baoyu-md` 目录运行 `bun ../../scripts/build-shared-package.mjs --external mermaid --external @antv/infographic --asset src/themes:themes --asset src/code-themes:code-themes` 更新运行时。单独复制技能目录时，还需使用包含这六套主题的本地构建版 `baoyu-md`；旧版 npm 包不包含新增主题。
 

@@ -1,8 +1,9 @@
-/* 醒目干货：黑色粗框、柠檬黄标签、结论卡片。 */
-h1 { font-size: calc(var(--md-font-size) * 2.125); font-weight: 900; border-bottom: 8px solid var(--md-accent-color); padding-bottom: 16px; }
-h2 { padding: 10px 14px; background: var(--md-accent-color); border: 2px solid #292724; box-shadow: 4px 4px 0 #292724; color: #292724; }
-blockquote { border: 2px solid #292724; border-radius: 0; box-shadow: 4px 4px 0 #292724; }
-li { padding: 12px; border: 1px solid #292724; background: #FFFFFF; }
+/* 醒目干货：柠檬黄重点、炭黑边框，用层级控制视觉重量。 */
+h1 { font-size: calc(var(--md-font-size) * 2.25); font-weight: 900; border-bottom: 7px solid var(--md-accent-color); padding-bottom: 20px; letter-spacing: -0.02em; }
+h2 { padding: 10px 14px; margin-right: 4px; background: var(--md-accent-color); border: 2px solid #292724; box-shadow: 3px 3px 0 #292724; color: #292724; }
+blockquote { margin-right: 4px; border: 2px solid #292724; border-radius: 0; box-shadow: 3px 3px 0 #292724; background: #FFFFFF; }
+li { padding: 12px 14px; border: 1px solid #D8D4C7; border-left: 4px solid #292724; background: #FFFFFF; }
 strong { padding: 1px 3px; background: var(--md-accent-color); }
 img { border: 2px solid #292724; border-radius: 0; }
-hr { border-top: 3px solid #292724; }
+hr { border-top: 2px solid #292724; }
+th { background: var(--md-accent-color); }
